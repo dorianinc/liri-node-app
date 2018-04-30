@@ -1,4 +1,3 @@
-
 require("dotenv").config();
 
 var fs = require('fs');
@@ -29,6 +28,20 @@ function myTweets() {
     var client = new Twitter(keys.twitterKeys);
     var params = {
         screen_name: '_DorianMacias',
-        count: 10
-        
+        count: 20
+    }
+console.log("initalizing function")
+
+    client.get('statuses/user_timeline', params, function (error, tweets, response) {
+        if (!error) {
+            for( i = 0; i < tweets.length; i++) {
+             var tweetText = tweets[i].text;
+                console.log('Tweet' + tweetText);
+                var tweetCreationDate = tweets[i].created_at;
+                console.log("Tweet Creation Date: " + tweetCreationDate);
+            }
+        } else {
+            console.log(error);
+        }
+    });
 } // end myTweets function
