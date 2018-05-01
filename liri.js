@@ -38,11 +38,22 @@ function myTweets() {
 
     client.get('statuses/user_timeline', params, function (error, tweets, response) {
         if (!error) {
+
             for (i = 0; i < tweets.length; i++) {
                 var tweetText = tweets[i].text;
-                console.log('Tweet: ' + tweetText);
                 var tweetCreationDate = tweets[i].created_at;
-                console.log("Creation Date: " + tweetCreationDate);
+
+                console.log(
+                    "----------------------------------------" +
+                    "\n @_DorianMacias: " + tweetText +
+                    "\n Creation Date: " + tweetCreationDate
+                );
+
+                fs.appendFile("logs/twitterLog.txt",
+                    "----------------------------------------" +
+                    "\n @_DorianMacias: " + tweetText +
+                    "\n Creation Date: " + tweetCreationDate
+                );
             }
         } else {
             console.log(error);
@@ -64,15 +75,28 @@ function spotifyThis() {
         query: value
     }, function (error, data) {
         if (error) {
-            console.log('Error occurred: ' + err);
+            console.log('Error occurred: ' + error);
             return;
         }
         var songInfo = data.tracks.items;
-        console.log("Artist(s): " + songInfo[0].artists[0].name);
-        console.log("Song: " + songInfo[0].name);
-        console.log("Album: " + songInfo[0].album.name);
-        console.log("Preview Link: " + songInfo[0].preview_url);
-        
+
+        console.log(
+            "----------------------------------------" +
+            "\n Artist(s): " + songInfo[0].artists[0].name +
+            "\n Song Title: " + songInfo[0].name +
+            "\n Album: " + songInfo[0].album.name +
+            "\n Preview Link: " + songInfo[0].preview_url +
+            "\n----------------------------------------"
+        );
+
+        fs.appendFile("logs/spotifyLog.txt",
+            "----------------------------------------" +
+            "\n Artist(s): " + songInfo[0].artists[0].name +
+            "\n Song Title: " + songInfo[0].name +
+            "\n Album: " + songInfo[0].album.name +
+            "\n Preview Link: " + songInfo[0].preview_url +
+            "\n----------------------------------------"
+        );
     });
 } // End spotifyThis function
 
@@ -88,14 +112,33 @@ function omdb() {
         if (!error && response.statusCode === 200) {
 
             var movieInfo = JSON.parse(data);
-            console.log("Title: " + movieInfo.Title);
-            console.log("Year: " + movieInfo.Year)
-            console.log("IMDB Rating: " + movieInfo.imdbRating);
-            console.log("Rotten Tomatoes Rating: " + movieInfo.Ratings[1].Value)
-            console.log("Country of Origin: " + movieInfo.Country);
-            console.log("Language: " + movieInfo.Language);
-            console.log("Plot: " + movieInfo.Plot);
-            console.log("Actors: " + movieInfo.Actors);
+
+            console.log(
+                "----------------------------------------" +
+                "\n Title: " + movieInfo.Title +
+                "\n Year: " + movieInfo.Year +
+                "\n IMDB Rating: " + movieInfo.imdbRating +
+                "\n Rotten Tomatoes Rating: " + movieInfo.Ratings[1].Value +
+                "\n Country of Origin: " + movieInfo.Country +
+                "\n Language: " + movieInfo.Language +
+                "\n Plot: " + movieInfo.Plot +
+                "\n Actors: " + movieInfo.Actors +
+                "\n ----------------------------------------"
+            );
+
+            fs.appendFile("logs/omdbLog.txt",
+                "----------------------------------------" +
+                "\n Title: " + movieInfo.Title +
+                "\n Year: " + movieInfo.Year +
+                "\n IMDB Rating: " + movieInfo.imdbRating +
+                "\n Rotten Tomatoes Rating: " + movieInfo.Ratings[1].Value +
+                "\n Country of Origin: " + movieInfo.Country +
+                "\n Language: " + movieInfo.Language +
+                "\n Plot: " + movieInfo.Plot +
+                "\n Actors: " + movieInfo.Actors +
+                "\n ----------------------------------------"
+            );
+
         }
     });
 
@@ -104,7 +147,7 @@ function omdb() {
 // Start of doWhatItSays function
 function doWhatItSays() {
 
-    fs.readFile('random.txt', 'utf8', function(error, data) {
+    fs.readFile('random.txt', 'utf8', function (error, data) {
         var randomArray = data.split(',');
         value = randomArray[1];
 
@@ -116,4 +159,4 @@ function doWhatItSays() {
             }
         }
     });
-  } // end doWhatItSays function
+} // end doWhatItSays function
