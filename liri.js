@@ -20,7 +20,7 @@ switch (action) {
         spotifyThis();
         break;
     case 'movie-this':
-        omdb();
+        omdb(value);
         break;
     case 'do-what-it-says':
         doWhatItSays();
@@ -57,13 +57,13 @@ function spotifyThis() {
     console.log("Intializing spotify Function")
 
     if (!value) {
-        value = 'All the Small Things';
+        value = "She's Out of Her Mind";
     }
     spotify.search({
         type: 'track',
         query: value
     }, function (error, data) {
-        if (!error && response.statusCode === 200) {
+        if (error) {
             console.log('Error occurred: ' + err);
             return;
         }
@@ -76,25 +76,44 @@ function spotifyThis() {
     });
 } // End spotifyThis function
 
+// Start of omdb Function
 function omdb() {
 
-// Then run a request to the OMDB API with the movie specified
-request("http://www.omdbapi.com/?t=remember+the+titans&y=&plot=short&apikey=trilogy", function(error, response, data) {
+    console.log("Initializing omdb Function")
+    if (!value) {
+        value = 'Stranger Than Fiction';
+    }
+    request("http://www.omdbapi.com/?t=" + value + "&y=&plot=short&apikey=trilogy", function (error, response, data) {
 
-  // If the request is successful (i.e. if the response status code is 200)
-  if (!error && response.statusCode === 200) {
+        if (!error && response.statusCode === 200) {
 
-    var movieInfo = JSON.parse(data);
-    // console.log(movieInfo);
-    console.log("Title: " + movieInfo.Title);
-    console.log("Year: " + movieInfo.Year)
-    console.log("IMDB Rating: " + movieInfo.imdbRating);
-    console.log("Rotten Tomatoes Rating: " + movieInfo.Ratings[1].Value)
-    console.log("Country of Origin: " + movieInfo.Country);
-    console.log("Language: " + movieInfo.Language);
-    console.log("Plot: " + movieInfo.Plot);
-    console.log("Actors: " + movieInfo.Actors); 
-  }
-});
+            var movieInfo = JSON.parse(data);
+            console.log("Title: " + movieInfo.Title);
+            console.log("Year: " + movieInfo.Year)
+            console.log("IMDB Rating: " + movieInfo.imdbRating);
+            console.log("Rotten Tomatoes Rating: " + movieInfo.Ratings[1].Value)
+            console.log("Country of Origin: " + movieInfo.Country);
+            console.log("Language: " + movieInfo.Language);
+            console.log("Plot: " + movieInfo.Plot);
+            console.log("Actors: " + movieInfo.Actors);
+        }
+    });
 
-}
+} // End of omdb Function
+
+// Start of doWhatItSays function
+function doWhatItSays() {
+
+    fs.readFile('random.txt', 'utf8', function(error, data) {
+        var randomArray = data.split(',');
+        value = randomArray[1];
+
+        if (error) {
+            console.log(error);
+        } else {
+            if (randomArray[0] === 'spotify-this-song') {
+                spotifyThis();
+            }
+        }
+    });
+  } // end doWhatItSays function
