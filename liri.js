@@ -46,13 +46,13 @@ function myTweets() {
                 console.log(
                     "----------------------------------------" +
                     "\n @_DorianMacias: " + tweetText +
-                    "\n Creation Date: " + tweetCreationDate
+                    "\n Post Date: " + tweetCreationDate
                 );
 
                 fs.appendFile("logs/twitterLog.txt",
-                    "----------------------------------------" +
-                    "\n @_DorianMacias: " + tweetText +
-                    "\n Creation Date: " + tweetCreationDate
+                    "\r\n----------------------------------------" +
+                    "\r\n @_DorianMacias: " + tweetText +
+                    "\r\n Post Date: " + tweetCreationDate
                 );
             }
         } else {
@@ -85,17 +85,17 @@ function spotifyThis() {
             "\n Artist(s): " + songInfo[0].artists[0].name +
             "\n Song Title: " + songInfo[0].name +
             "\n Album: " + songInfo[0].album.name +
-            "\n Preview Link: " + songInfo[0].preview_url +
+            "\n Song Preview: " + songInfo[0].preview_url +
             "\n----------------------------------------"
         );
 
         fs.appendFile("logs/spotifyLog.txt",
             "----------------------------------------" +
-            "\n Artist(s): " + songInfo[0].artists[0].name +
-            "\n Song Title: " + songInfo[0].name +
-            "\n Album: " + songInfo[0].album.name +
-            "\n Preview Link: " + songInfo[0].preview_url +
-            "\n----------------------------------------"
+            "\r\n Artist(s): " + songInfo[0].artists[0].name +
+            "\r\n Song Title: " + songInfo[0].name +
+            "\r\n Album: " + songInfo[0].album.name +
+            "\r\n Song Preview: " + songInfo[0].preview_url +
+            "\r\n----------------------------------------"
         );
     });
 } // End spotifyThis function
@@ -128,15 +128,15 @@ function omdb() {
 
             fs.appendFile("logs/omdbLog.txt",
                 "----------------------------------------" +
-                "\n Title: " + movieInfo.Title +
-                "\n Year: " + movieInfo.Year +
-                "\n IMDB Rating: " + movieInfo.imdbRating +
-                "\n Rotten Tomatoes Rating: " + movieInfo.Ratings[1].Value +
-                "\n Country of Origin: " + movieInfo.Country +
-                "\n Language: " + movieInfo.Language +
-                "\n Plot: " + movieInfo.Plot +
-                "\n Actors: " + movieInfo.Actors +
-                "\n ----------------------------------------"
+                "\r\n Title: " + movieInfo.Title +
+                "\r\n Year: " + movieInfo.Year +
+                "\r\n IMDB Rating: " + movieInfo.imdbRating +
+                "\r\n Rotten Tomatoes Rating: " + movieInfo.Ratings[1].Value +
+                "\r\n Country of Origin: " + movieInfo.Country +
+                "\r\n Language: " + movieInfo.Language +
+                "\r\n Plot: " + movieInfo.Plot +
+                "\r\n Actors: " + movieInfo.Actors +
+                "\r\n ----------------------------------------"
             );
 
         }
