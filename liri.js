@@ -50,9 +50,10 @@ function myTweets() {
                 );
 
                 fs.appendFile("logs/twitterLog.txt",
-                    "\r\n----------------------------------------" +
+                    "----------------------------------------" +
                     "\r\n @_DorianMacias: " + tweetText +
-                    "\r\n Post Date: " + tweetCreationDate
+                    "\r\n Post Date: " + tweetCreationDate +
+                    "\r\n----------------------------------------"
                 );
             }
         } else {
