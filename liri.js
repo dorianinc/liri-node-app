@@ -53,8 +53,13 @@ function myTweets() {
                     "----------------------------------------" +
                     "\r\n @_DorianMacias: " + tweetText +
                     "\r\n Post Date: " + tweetCreationDate +
-                    "\r\n----------------------------------------"
-                );
+                    "\r\n----------------------------------------",
+                    function (error) {
+                        if (error) {
+                            console.log(error);
+                        }
+                    });
+
             }
         } else {
             console.log(error);
@@ -71,10 +76,8 @@ function spotifyThis() {
     if (!value) {
         value = "She's Out of Her Mind";
     }
-    spotify.search({
-        type: 'track',
-        query: value
-    }, function (error, data) {
+    spotify.search({ type: 'track', query: value }, function (error, data) {
+
         if (error) {
             console.log('Error occurred: ' + error);
             return;
@@ -96,8 +99,14 @@ function spotifyThis() {
             "\r\n Song Title: " + songInfo[0].name +
             "\r\n Album: " + songInfo[0].album.name +
             "\r\n Song Preview: " + songInfo[0].preview_url +
-            "\r\n----------------------------------------"
-        );
+            "\r\n----------------------------------------",
+            function (error) {
+
+                if (error) {
+                    console.log(error);
+                }
+            });
+
     });
 } // End spotifyThis function
 
@@ -137,8 +146,14 @@ function omdb() {
                 "\r\n Language: " + movieInfo.Language +
                 "\r\n Plot: " + movieInfo.Plot +
                 "\r\n Actors: " + movieInfo.Actors +
-                "\r\n ----------------------------------------"
-            );
+                "\r\n ----------------------------------------",
+                function (error) {
+
+                    if (error) {
+                        console.log(error);
+                    }
+
+                });
 
         }
     });
@@ -161,3 +176,6 @@ function doWhatItSays() {
         }
     });
 } // end doWhatItSays function
+
+
+
