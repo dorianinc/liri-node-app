@@ -6,10 +6,12 @@ var request = require('request');
 var Twitter = require('twitter');
 var Spotify = require('node-spotify-api');
 
+//Keys
+var client = new Twitter(keys.twitter);
+var spotify = new Spotify(keys.spotify);
+
 var action = process.argv[2];
 var value = process.argv[3];
-
-// Keys 
 
 // Switch Function
 switch (action) {
@@ -29,7 +31,6 @@ switch (action) {
 // Start myTweets function
 function myTweets() {
 
-    var client = new Twitter(keys.twitterKeys);
     var params = {
         screen_name: '_DorianMacias',
         count: 20
@@ -70,7 +71,6 @@ function myTweets() {
 // Start spotifyThis function
 function spotifyThis() {
 
-    var spotify = new Spotify(keys.spotifyKeys);
     console.log("Intializing spotify Function")
 
     if (!value) {
