@@ -80,7 +80,7 @@ function spotifyThis() {
             return;
         }
 
-        var songData = data.tracks.items[1]
+        var songData = data.tracks.items[0]
         var songInfo =
             "----------------------------------------" +
             "\r\n Artist(s): " + songData.artists[0].name +
