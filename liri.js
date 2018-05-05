@@ -48,6 +48,7 @@ function myTweets() {
                     "\r\n----------------------------------------" +
                     "\r\n @_DorianMacias: " + tweetText +
                     "\r\n Post Date: " + tweetDate
+                ;
 
                 console.log(tweetInfo);
 
@@ -80,14 +81,15 @@ function spotifyThis() {
             return;
         }
 
-        var songData = data.tracks.items[0]
+        var songData = data.tracks.items[0];
         var songInfo =
             "----------------------------------------" +
             "\r\n Artist(s): " + songData.artists[0].name +
             "\r\n Song Title: " + songData.name +
             "\r\n Album: " + songData.album.name +
             "\r\n Song Preview: " + songData.preview_url +
-            "\r\n----------------------------------------";
+            "\r\n----------------------------------------"
+        ;
 
         console.log(songInfo);
 
@@ -113,7 +115,6 @@ function omdb() {
         if (!error && response.statusCode === 200) {
 
             var movieData = JSON.parse(data);
-
             var movieInfo =
                 "----------------------------------------" +
                 "\r\n Title: " + movieData.Title +
@@ -124,7 +125,9 @@ function omdb() {
                 "\r\n Language: " + movieData.Language +
                 "\r\n Plot: " + movieData.Plot +
                 "\r\n Actors: " + movieData.Actors +
-                "\r\n ----------------------------------------";
+                "\r\n ----------------------------------------"
+            ;
+
             console.log(movieInfo)
 
             fs.appendFile("logs/omdbLog.txt", movieInfo, function (error) {
