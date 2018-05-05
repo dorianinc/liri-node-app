@@ -37,29 +37,25 @@ function myTweets() {
     }
     console.log("initalizing myTweets function")
 
-    client.get('statuses/user_timeline', params, function (error, tweets, response) {
+    client.get('statuses/user_timeline', params, function (error, tweetsData, response) {
         if (!error) {
 
-            for (i = 0; i < tweets.length; i++) {
-                var tweetText = tweets[i].text;
-                var tweetCreationDate = tweets[i].created_at;
+            for (i = 0; i < tweetsData.length; i++) {
+                var tweetText = tweetsData[i].text;
+                var tweetDate = tweetsData[i].created_at;
 
-                console.log(
-                    "----------------------------------------" +
-                    "\n @_DorianMacias: " + tweetText +
-                    "\n Post Date: " + tweetCreationDate
-                );
-
-                fs.appendFile("logs/twitterLog.txt",
-                    "----------------------------------------" +
+                var tweetInfo =
+                    "\r\n----------------------------------------" +
                     "\r\n @_DorianMacias: " + tweetText +
-                    "\r\n Post Date: " + tweetCreationDate +
-                    "\r\n----------------------------------------",
-                    function (error) {
-                        if (error) {
-                            console.log(error);
-                        }
-                    });
+                    "\r\n Post Date: " + tweetDate
+
+                console.log(tweetInfo);
+
+                fs.appendFile("logs/twitterLog.txt", tweetInfo, function (error) {
+                    if (error) {
+                        console.log(error);
+                    }
+                });
 
             }
         } else {
@@ -76,36 +72,31 @@ function spotifyThis() {
     if (!value) {
         value = "She's Out of Her Mind";
     }
-    spotify.search({ type: 'track', query: value }, function (error, data) {
+
+    spotify.search({type: 'track', query: value}, function (error, data) {
 
         if (error) {
             console.log('Error occurred: ' + error);
             return;
         }
-        var songInfo = data.tracks.items;
 
-        console.log(
+        var songData = data.tracks.items[1]
+        var songInfo =
             "----------------------------------------" +
-            "\n Artist(s): " + songInfo[0].artists[0].name +
-            "\n Song Title: " + songInfo[0].name +
-            "\n Album: " + songInfo[0].album.name +
-            "\n Song Preview: " + songInfo[0].preview_url +
-            "\n----------------------------------------"
-        );
+            "\r\n Artist(s): " + songData.artists[0].name +
+            "\r\n Song Title: " + songData.name +
+            "\r\n Album: " + songData.album.name +
+            "\r\n Song Preview: " + songData.preview_url +
+            "\r\n----------------------------------------";
 
-        fs.appendFile("logs/spotifyLog.txt",
-            "----------------------------------------" +
-            "\r\n Artist(s): " + songInfo[0].artists[0].name +
-            "\r\n Song Title: " + songInfo[0].name +
-            "\r\n Album: " + songInfo[0].album.name +
-            "\r\n Song Preview: " + songInfo[0].preview_url +
-            "\r\n----------------------------------------",
-            function (error) {
+        console.log(songInfo);
 
-                if (error) {
-                    console.log(error);
-                }
-            });
+        fs.appendFile("logs/spotifyLog.txt", songInfo, function (error) {
+
+            if (error) {
+                console.log(error);
+            }
+        });
 
     });
 } // End spotifyThis function
@@ -121,39 +112,28 @@ function omdb() {
 
         if (!error && response.statusCode === 200) {
 
-            var movieInfo = JSON.parse(data);
+            var movieData = JSON.parse(data);
 
-            console.log(
+            var movieInfo =
                 "----------------------------------------" +
-                "\n Title: " + movieInfo.Title +
-                "\n Year: " + movieInfo.Year +
-                "\n IMDB Rating: " + movieInfo.imdbRating +
-                "\n Rotten Tomatoes Rating: " + movieInfo.Ratings[1].Value +
-                "\n Country of Origin: " + movieInfo.Country +
-                "\n Language: " + movieInfo.Language +
-                "\n Plot: " + movieInfo.Plot +
-                "\n Actors: " + movieInfo.Actors +
-                "\n ----------------------------------------"
-            );
+                "\r\n Title: " + movieData.Title +
+                "\r\n Year: " + movieData.Year +
+                "\r\n IMDB Rating: " + movieData.imdbRating +
+                "\r\n Rotten Tomatoes Rating: " + movieData.Ratings[1].Value +
+                "\r\n Country of Origin: " + movieData.Country +
+                "\r\n Language: " + movieData.Language +
+                "\r\n Plot: " + movieData.Plot +
+                "\r\n Actors: " + movieData.Actors +
+                "\r\n ----------------------------------------";
+            console.log(movieInfo)
 
-            fs.appendFile("logs/omdbLog.txt",
-                "----------------------------------------" +
-                "\r\n Title: " + movieInfo.Title +
-                "\r\n Year: " + movieInfo.Year +
-                "\r\n IMDB Rating: " + movieInfo.imdbRating +
-                "\r\n Rotten Tomatoes Rating: " + movieInfo.Ratings[1].Value +
-                "\r\n Country of Origin: " + movieInfo.Country +
-                "\r\n Language: " + movieInfo.Language +
-                "\r\n Plot: " + movieInfo.Plot +
-                "\r\n Actors: " + movieInfo.Actors +
-                "\r\n ----------------------------------------",
-                function (error) {
+            fs.appendFile("logs/omdbLog.txt", movieInfo, function (error) {
 
-                    if (error) {
-                        console.log(error);
-                    }
+                if (error) {
+                    console.log(error);
+                }
 
-                });
+            });
 
         }
     });
@@ -176,6 +156,3 @@ function doWhatItSays() {
         }
     });
 } // end doWhatItSays function
-
-
-
