@@ -37,12 +37,12 @@ function myTweets() {
     }
     console.log("initalizing myTweets function")
 
-    client.get('statuses/user_timeline', params, function (error, tweetsData, response) {
+    client.get('statuses/user_timeline', params, function (error, data, response) {
         if (!error) {
 
-            for (i = 0; i < tweetsData.length; i++) {
-                var tweetText = tweetsData[i].text;
-                var tweetDate = tweetsData[i].created_at;
+            for (i = 0; i < data.length; i++) {
+                var tweetText = data[i].text;
+                var tweetDate = data[i].created_at;
 
                 var tweetInfo =
                     "\r\n----------------------------------------" +
@@ -74,7 +74,7 @@ function spotifyThis() {
         value = "She's Out of Her Mind";
     }
 
-    spotify.search({type: 'track', query: value}, function (error, data) {
+    spotify.search({type: 'track', query: value}, function (error, data, response) {
 
         if (error) {
             console.log('Error occurred: ' + error);
